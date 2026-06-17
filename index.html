@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="MobileOptimized" content="width" />
 
   <!-- ===== EDIT: WhatsApp link preview ===== -->
   <title>KLEVER Küche — Fast, Affordable, Beautiful Kitchens</title>
@@ -277,5 +279,24 @@
 
     <p class="fineprint reveal">Addis Ababa, Ethiopia · Free consultations</p>
   </main>
+
+  <script>
+    /* Fallback for in-app / "desktop mode" browsers that ignore the viewport tag and
+       lay the page out at ~980px (which makes the card look tiny). If the layout width
+       is far wider than the actual screen, pin it to the real device width. Harmless
+       on browsers that already behave correctly. */
+    (function () {
+      var vp = document.querySelector('meta[name="viewport"]');
+      if (!vp) return;
+      function pin() {
+        var dev = (window.screen && window.screen.width) || 0;
+        if (dev && document.documentElement.clientWidth > dev + 100) {
+          vp.setAttribute('content', 'width=' + dev + ', initial-scale=1, viewport-fit=cover');
+        }
+      }
+      pin();
+      window.addEventListener('orientationchange', function () { setTimeout(pin, 250); });
+    })();
+  </script>
 </body>
 </html>
