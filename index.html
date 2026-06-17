@@ -33,12 +33,13 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html, body { max-width: 100%; overflow-x: hidden; }
+
     body {
       min-height: 100vh;
+      min-height: 100dvh;            /* honours mobile address bar */
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 18px;
+      padding: 28px 16px;
       background:
         radial-gradient(130% 100% at 50% 0%, #F2EFE8 0%, #E6E2DA 52%, #D6D1C7 100%);
       color: var(--ink);
@@ -48,6 +49,7 @@
 
     .card {
       position: relative;
+      margin: auto;                  /* centers when there's room, scrolls from top when not */
       width: 100%;
       max-width: 404px;
       background: var(--paper);
@@ -138,7 +140,7 @@
       font-size: .61rem;
       color: var(--stone);
     }
-    .rvalue { font-weight: 600; font-size: 1rem; text-align: right; }
+    .rvalue { font-weight: 600; font-size: 1rem; text-align: right; min-width: 0; overflow-wrap: anywhere; }
     .rmark {
       font-family: var(--display);
       color: #CFC8BB;
@@ -184,6 +186,20 @@
     }
 
     a:focus-visible { outline: 1.5px solid var(--red); outline-offset: 3px; }
+
+    /* ---------- SMALL PHONES ---------- */
+    @media (max-width: 400px) {
+      body { padding: 20px 12px; }
+      .card { padding: 32px 22px 24px; border-radius: 14px; }
+      .card::after { inset: 9px; border-radius: 8px; }
+      .tagline { font-size: 1.22rem; margin-top: 14px; }
+      .register { margin-top: 22px; }
+      .row { gap: 10px; padding: 15px 4px 15px 12px; }
+      .rlabel { font-size: .58rem; letter-spacing: .1em; }
+      .rvalue { font-size: .95rem; }
+      .save { padding: 14px 30px; }
+      .fineprint { letter-spacing: .1em; }
+    }
 
     /* ---------- ORCHESTRATED LOAD ---------- */
     .edge i { animation: wipe .5s cubic-bezier(.3,.7,.3,1) forwards; }
