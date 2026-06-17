@@ -338,7 +338,7 @@
       </a>
     </nav>
 
-    <a class="save reveal" href="contact.vcf" type="text/vcard">Save Contact</a>
+    <a class="save reveal" href="contact.vcf" type="text/vcard" id="saveBtn">Save Contact</a>
 
     <p class="fineprint reveal">Addis Ababa, Ethiopia · Free consultations</p>
   </main>
@@ -359,6 +359,33 @@
       }
       pin();
       window.addEventListener('orientationchange', function () { setTimeout(pin, 250); });
+    })();
+  </script>
+
+  <script>
+    /* Android downloads .vcf files instead of opening Contacts. If the browser
+       can share files, open the native share sheet so the user can send the
+       card straight to their Contacts app. iOS already opens the link in
+       Contacts directly, so we leave it alone. Always falls back to the link. */
+    (function () {
+      var btn = document.getElementById('saveBtn');
+      if (!btn) return;
+      var isAndroid = /Android/i.test(navigator.userAgent);
+      if (!isAndroid || typeof navigator.canShare !== 'function') return;
+      var vcfFile = null;
+      fetch('contact.vcf')
+        .then(function (r) { return r.blob(); })
+        .then(function (blob) {
+          var f = new File([blob], 'KLEVER-Kuche.vcf', { type: 'text/vcard' });
+          if (navigator.canShare({ files: [f] })) { vcfFile = f; }
+        })
+        .catch(function () {});
+      btn.addEventListener('click', function (e) {
+        if (!vcfFile) return;                       // not ready -> normal link
+        e.preventDefault();
+        navigator.share({ files: [vcfFile], title: 'KLEVER Küche' })
+          .catch(function () { window.location.href = 'contact.vcf'; });
+      });
     })();
   </script>
 </body>
