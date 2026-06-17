@@ -232,6 +232,22 @@
       color: var(--stone);
     }
 
+    /* hint shown after tapping Save on Android (where the file downloads) */
+    .savehint {
+      margin: 12px auto 0;
+      max-width: 260px;
+      text-align: center;
+      font-family: var(--body);
+      font-size: .74rem;
+      line-height: 1.45;
+      color: var(--stone);
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity .3s ease, max-height .3s ease, margin-top .3s ease;
+    }
+    .savehint.show { opacity: 1; max-height: 70px; }
+
     a:focus-visible { outline: 1.5px solid var(--red); outline-offset: 3px; }
 
     /* ---------- SMALL PHONES ---------- */
@@ -339,6 +355,7 @@
     </nav>
 
     <a class="save reveal" href="contact.vcf" type="text/vcard" id="saveBtn">Save Contact</a>
+    <p class="savehint" id="saveHint" role="status">Downloaded — open the file to add us to your contacts.</p>
 
     <p class="fineprint reveal">Addis Ababa, Ethiopia · Free consultations</p>
   </main>
@@ -368,23 +385,30 @@
        card straight to their Contacts app. iOS already opens the link in
        Contacts directly, so we leave it alone. Always falls back to the link. */
     (function () {
-      var btn = document.getElementById('saveBtn');
+      var btn  = document.getElementById('saveBtn');
+      var hint = document.getElementById('saveHint');
       if (!btn) return;
       var isAndroid = /Android/i.test(navigator.userAgent);
-      if (!isAndroid || typeof navigator.canShare !== 'function') return;
       var vcfFile = null;
-      fetch('contact.vcf')
-        .then(function (r) { return r.blob(); })
-        .then(function (blob) {
-          var f = new File([blob], 'KLEVER-Kuche.vcf', { type: 'text/vcard' });
-          if (navigator.canShare({ files: [f] })) { vcfFile = f; }
-        })
-        .catch(function () {});
+      // Prepare a shareable file (Android Chrome) so a tap can open the share sheet.
+      if (isAndroid && typeof navigator.canShare === 'function') {
+        fetch('contact.vcf')
+          .then(function (r) { return r.blob(); })
+          .then(function (blob) {
+            var f = new File([blob], 'KLEVER-Kuche.vcf', { type: 'text/vcard' });
+            if (navigator.canShare({ files: [f] })) { vcfFile = f; }
+          })
+          .catch(function () {});
+      }
+      function showHint() { if (hint) { hint.classList.add('show'); } }
       btn.addEventListener('click', function (e) {
-        if (!vcfFile) return;                       // not ready -> normal link
-        e.preventDefault();
-        navigator.share({ files: [vcfFile], title: 'KLEVER Küche' })
-          .catch(function () { window.location.href = 'contact.vcf'; });
+        if (vcfFile) {                              // share sheet -> send to Contacts
+          e.preventDefault();
+          navigator.share({ files: [vcfFile], title: 'KLEVER Küche' })
+            .catch(function () { showHint(); window.location.href = 'contact.vcf'; });
+        } else if (isAndroid) {                     // it will download -> guide the user
+          showHint();
+        }
       });
     })();
   </script>
