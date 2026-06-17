@@ -37,7 +37,7 @@
 
     body {
       min-height: 100vh;
-      min-height: 100dvh;            /* honours mobile address bar */
+      min-height: 100svh;            /* stable height — never jumps when the address bar shows/hides */
       display: flex;
       padding: 28px 16px;
       background:
@@ -224,6 +224,13 @@
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; animation: none; }
       .edge i { transform: scaleX(1); animation: none; }
+    }
+
+    /* Phones/touch devices: render the card static — no entrance motion, nothing shifts */
+    @media (hover: none) and (pointer: coarse) {
+      .reveal { opacity: 1; transform: none; animation: none; }
+      .edge i { transform: scaleX(1); animation: none; }
+      .row { transition: none; }
     }
   </style>
 </head>
