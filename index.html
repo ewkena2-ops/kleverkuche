@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ===== EDIT: WhatsApp link preview ===== -->
+  <title>KLEVER Küche — Fast, Affordable, Beautiful Kitchens</title>
+  <meta name="description" content="Designed to measure. Built to last. Call, message, or visit us in Addis Ababa." />
+  <meta property="og:title" content="KLEVER Küche — Beautiful Kitchens" />
+  <meta property="og:description" content="Designed to measure. Built to last. One tap to reach us." />
+  <meta property="og:image" content="https://YOUR-DOMAIN/image.png" />
+  <meta property="og:type" content="website" />
+  <!-- ======================================= -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper:  #FFFFFF;
+      --ink:    #161616;  /* deep charcoal — the wordmark */
+      --stone:  #6A655C;  /* secondary text             */
+      --red:    #D62828;  /* flag red — accent          */
+      --gold:   #C9A23A;  /* foil gold                  */
+      --gold-bright: #F2A900; /* flag gold for the edge  */
+      --hair:   #ECE8E0;  /* hairlines                  */
+      --display: "Archivo", system-ui, sans-serif;
+      --serif:   "Cormorant Garamond", Georgia, serif;
+      --body:    "Manrope", system-ui, -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 18px;
+      background:
+        radial-gradient(130% 100% at 50% 0%, #F2EFE8 0%, #E6E2DA 52%, #D6D1C7 100%);
+      color: var(--ink);
+      font-family: var(--body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      max-width: 404px;
+      background: var(--paper);
+      border-radius: 18px;
+      overflow: hidden;
+      padding: 40px 34px 30px;
+      box-shadow:
+        0 2px 5px rgba(20,15,8,.05),
+        0 26px 50px -22px rgba(20,15,8,.45),
+        0 70px 100px -55px rgba(20,15,8,.40);
+    }
+    /* foil-gold hairline frame — the single luxury cue */
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 11px;
+      border: 1px solid rgba(201,162,58,.45);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    /* tricolor letterhead edge, flush to the top */
+    .edge {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      display: flex;
+    }
+    .edge i { flex: 1; transform: scaleX(0); transform-origin: left; }
+    .edge .k { background: var(--ink); }
+    .edge .r { background: var(--red); }
+    .edge .g { background: var(--gold-bright); }
+
+    /* ---------- HERO ---------- */
+    .brand { text-align: center; }
+    .logo {
+      width: min(264px, 80%);
+      height: auto;
+      display: block;
+      margin: 6px auto 0;
+    }
+    .tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.18rem, 4.6vw, 1.42rem);
+      line-height: 1.3;
+      color: var(--ink);
+      margin-top: 18px;
+    }
+    .tagline span { color: var(--gold); font-style: normal; padding: 0 2px; }
+
+    /* ---------- CONTACT REGISTER (spec sheet) ---------- */
+    .register {
+      margin-top: 28px;
+      border-top: 1px solid var(--hair);
+    }
+    .row {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: baseline;
+      gap: 14px;
+      padding: 16px 6px 16px 14px;
+      border-bottom: 1px solid var(--hair);
+      text-decoration: none;
+      color: var(--ink);
+      transition: padding-left .18s ease, background .18s ease;
+    }
+    .row::before {
+      content: "";
+      position: absolute;
+      left: 3px; top: 50%;
+      width: 3px; height: 0;
+      background: var(--red);
+      border-radius: 2px;
+      transform: translateY(-50%);
+      transition: height .18s ease;
+    }
+    .row:hover, .row:focus-visible { padding-left: 18px; background: #FBFAF6; outline: none; }
+    .row:hover::before, .row:focus-visible::before { height: 60%; }
+
+    .rlabel {
+      font-family: var(--display);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      font-size: .61rem;
+      color: var(--stone);
+    }
+    .rvalue { font-weight: 600; font-size: 1rem; text-align: right; }
+    .rmark {
+      font-family: var(--display);
+      color: #CFC8BB;
+      font-size: 1.05rem;
+      transition: transform .18s ease, color .18s ease;
+    }
+    .row:hover .rmark, .row:focus-visible .rmark { color: var(--red); transform: translateX(3px); }
+
+    /* ---------- SAVE ---------- */
+    .save {
+      display: block;
+      margin: 26px auto 0;
+      width: fit-content;
+      padding: 15px 36px;
+      font-family: var(--display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .7rem;
+      color: #fff;
+      text-decoration: none;
+      background: var(--ink);
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 1px rgba(201,162,58,.55), 0 10px 22px -12px rgba(0,0,0,.6);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .save:hover, .save:focus-visible {
+      background: #000;
+      transform: translateY(-1px);
+      box-shadow: inset 0 0 0 1px var(--gold), 0 16px 30px -14px rgba(0,0,0,.7);
+      outline: none;
+    }
+
+    .fineprint {
+      margin-top: 22px;
+      text-align: center;
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: .58rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    a:focus-visible { outline: 1.5px solid var(--red); outline-offset: 3px; }
+
+    /* ---------- ORCHESTRATED LOAD ---------- */
+    .edge i { animation: wipe .5s cubic-bezier(.3,.7,.3,1) forwards; }
+    .edge .k { animation-delay: .15s; }
+    .edge .r { animation-delay: .28s; }
+    .edge .g { animation-delay: .41s; }
+
+    .reveal { opacity: 0; transform: translateY(11px); animation: rise .75s cubic-bezier(.2,.7,.2,1) forwards; }
+    .logo      { animation-delay: .35s; }
+    .tagline   { animation-delay: .65s; }
+    .register .row:nth-child(1) { animation-delay: .9s; }
+    .register .row:nth-child(2) { animation-delay: 1.0s; }
+    .register .row:nth-child(3) { animation-delay: 1.1s; }
+    .register .row:nth-child(4) { animation-delay: 1.2s; }
+    .register .row:nth-child(5) { animation-delay: 1.3s; }
+    .save      { animation-delay: 1.45s; }
+    .fineprint { animation-delay: 1.6s; }
+
+    @keyframes rise { to { opacity: 1; transform: none; } }
+    @keyframes wipe { to { transform: scaleX(1); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; animation: none; }
+      .edge i { transform: scaleX(1); animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="edge" aria-hidden="true"><i class="k"></i><i class="r"></i><i class="g"></i></div>
+
+    <header class="brand">
+      <img class="logo reveal" src="image.png" alt="KLEVER Küche — Fast, Affordable, Beautiful Kitchens" />
+      <!-- EDIT: tagline -->
+      <p class="tagline reveal">Designed to measure.<br />Built to <span>last.</span></p>
+    </header>
+
+    <nav class="register" aria-label="How to reach KLEVER Küche">
+      <!-- EDIT every href + value below -->
+      <a class="row reveal" href="tel:+251963999992">
+        <span class="rlabel">Call</span>
+        <span class="rvalue">+251 96 399 9992</span>
+        <span class="rmark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="row reveal" href="https://wa.me/251963999992?text=Hi%20KLEVER%20K%C3%BCche%2C%20I%27d%20like%20a%20kitchen%20quote" target="_blank" rel="noopener">
+        <span class="rlabel">WhatsApp</span>
+        <span class="rvalue">Get a free quote</span>
+        <span class="rmark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="row reveal" href="https://kleverkuche.com" target="_blank" rel="noopener">
+        <span class="rlabel">Website</span>
+        <span class="rvalue">kleverkuche.com</span>
+        <span class="rmark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="row reveal" href="mailto:kleverkitchen29@gmail.com">
+        <span class="rlabel">Email</span>
+        <span class="rvalue">Email us</span>
+        <span class="rmark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="row reveal" href="https://maps.google.com/?q=KLEVER+K%C3%BCche+Addis+Ababa" target="_blank" rel="noopener">
+        <span class="rlabel">Location</span>
+        <span class="rvalue">Addis Ababa</span>
+        <span class="rmark" aria-hidden="true">&rsaquo;</span>
+      </a>
+    </nav>
+
+    <a class="save reveal" href="contact.vcf" download>Save Contact</a>
+
+    <p class="fineprint reveal">Addis Ababa, Ethiopia · Free consultations</p>
+  </main>
+</body>
+</html>
